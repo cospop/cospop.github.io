@@ -31,6 +31,7 @@ $(window).load(function(){
     layoutInit();
     categoryInit();
     productDetailInit();
+    orderInit();
 
     $(document).on("click", ".moncoStyle tbody tr:not(.contentsArea)", function(){
         if($(this).next().hasClass("on")){
@@ -86,6 +87,8 @@ $(window).load(function(){
     var touchmoved;
 
     $(document).on("touchend", ".moncoStyle2 li", function(e){
+        // e.stopPropagation();
+        // e.preventDefault();
         if(touchmoved != true){
             if($(e.target)[0].tagName=="IMG"){
                 return;
@@ -143,6 +146,110 @@ $(window).load(function(){
         }
 
         $('html, body').animate({scrollTop : targetTop+controlTop}, 400);
+    });
+
+    $(document).on("click touchend", ".payBtnArea", function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        $(".payBtnArea").addClass("viewOn");
+        $(".item-view#skin1-container section.form .option").addClass("viewOn");
+    });
+
+    $(document).on("click touchend", ".optionClose", function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        $(".payBtnArea").removeClass("viewOn");
+        $(".item-view#skin1-container section.form .option").removeClass("viewOn");
+    });
+
+    $(document).on("change", ".item-view#skin1-container section.form .box-select select", function(e){
+        if($(".item-view#skin1-container section.form .box-select select option:selected").val() == ""){
+            $(this).parents(".item-view#skin1-container section.form").addClass("incomplete");
+        }else{
+            $(this).parents(".item-view#skin1-container section.form").removeClass("incomplete");
+        }
+    });
+
+    $(document).on("click touchend", ".item-view#skin1-container section.contents:first-child > .productInfo", function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        if($(this).hasClass("viewOn")){
+            $(this).removeClass("viewOn");
+            $(".item-view#skin1-container section.contents:first-child > span").removeClass("viewOn");
+        }else{
+            $(this).addClass("viewOn");
+            $(".item-view#skin1-container section.contents:first-child > span").addClass("viewOn");
+        }
+    });
+
+    $(document).on("click", ".container.order order-price-info .total.detail button.buy2", function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        $(".container.order order-user-info div:not('d-n') form button[type='submit']").trigger("click");
+        $(".container.order order-non-member-join div:not('d-n') form button[type='submit']").trigger("click");
+        $(".container.order order-shipping-address form button[type='submit']").trigger("click");
+        $(".container.order order-delivery-option button[type='button']").trigger("click");
+        $(".container.order order-delivery-option button[type='button']").trigger("click");
+        $(".container.order order-payment button[type='submit']").trigger("click");
+        if((!$(".container.order order-non-member-join div.buying-guest").hasClass("d-n") && $(".container.order order-non-member-join form button[type='submit']").hasClass("err")) || $(".container.order order-user-info form button[type='submit']").hasClass("err") || $(".container.order order-shipping-address form button[type='submit']").hasClass("err") || $(".container.order order-payment form button[type='submit']").hasClass("err")){
+            orderMenuOn();
+            if($(".container.order order-payment form button[type='submit']").hasClass("err")){
+                $("#newPayMethod").addClass("err");
+            }
+        }else{
+            $(".container.order order-user-info div:not('d-n') form button[type='submit']").trigger("click");
+            $(".container.order order-non-member-join div:not('d-n') form button[type='submit']").trigger("click");
+            $(".container.order order-shipping-address form button[type='submit']").trigger("click");
+            $(".container.order order-delivery-option button[type='button']").trigger("click");
+            $(".container.order order-delivery-option button[type='button']").trigger("click");
+            $(".container.order order-payment button[type='submit']").trigger("click");
+
+            var loadCount=0;
+            var loopCount=0;
+
+            var countCode = setInterval( function() {
+                loadCount++;
+                if($(".container.order order-price-info .total.detail button.buy").length>0 && $(".container.order order-price-info .total.detail button.buy").attr("disabled", false)){
+                    if(loopCount>2){
+                        $(".container.order order-price-info .total.detail button.buy").trigger("click");
+                        clearInterval(countCode);
+                        countCode = "";
+                        loadCount=0;
+                    }
+                    loopCount++;
+                }else if(loadCount>20){
+                    clearInterval(countCode);
+                    countCode = "";
+                    loadCount=0;
+                }
+            },200);
+        }
+    });
+
+    $(document).on("submit", ".container.order.orderFirst order-non-member-join form", function(e){
+        if($(".container.order order-non-member-join input[type='password']").val().length<1){
+            $(".container.order order-non-member-join input[type='password']").parent().addClass("err");
+        }
+    });
+
+    $(document).on("keyup", ".container.order order-non-member-join input[type='password']", function(e){
+        if($(this).val().length<1){
+            $(this).parent().addClass("err");
+        }else{
+            $(this).parent().removeClass("err");
+        }
+    });
+
+    $(document).on("change", "#newPayMethod select", function(e){
+        var opt = $("#newPayMethod select option:selected");
+        alert(opt.attr("data-alert"));
+        if(opt.attr("data-radio")==""){
+            $("#newPayMethod select option[data-radio='"+$('input[name="payType"]:checked').attr("id")+"']").prop("selected", true);
+        }else{
+            $("#newPayMethod").removeClass("err");
+            $('order-payment form .box-radio input[name="payType"]').prop('checked', false);
+            $("label[for='"+opt.attr("data-radio")+"']").trigger("click");
+        }
     });
 
     $(window).scroll(function() {
@@ -219,10 +326,28 @@ function layoutInit(){
                 }
             });
             $("#skin1-header nav.category div > ul > li").css("visibility", "visible");
+
+            if($("nav.snb").length<=0 && $("nav.ng-scope.category").not(".dev-menuTree").length>0){
+                var snbHTML = '<nav class="ng-scope snb monco-snb">';
+                snbHTML += '<div>';
+                snbHTML += '<ul class="ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty">';
+
+                $("nav.ng-scope.category").not(".dev-menuTree").find("ul").not(".include-nav-bottom").find("li a").each(function(){
+                    snbHTML += '<li class="ng-scope">';
+                    snbHTML += '<a href="'+$(this).attr("href")+'" class="ng-scope Reference '+($(this).hasClass("active") ? "active" : "")+'"><span class="ng-binding">'+$(this).find("span").text()+'</span></a>';
+                    snbHTML += '</li>';
+                });
+
+                snbHTML += '</ul>';
+                snbHTML += '</div>';
+                snbHTML += '</nav>';
+
+                $("#skin1-container .body div:first").prepend(snbHTML);
+            }
+
             clearInterval(countCode);
             countCode = "";
             loadCount=0;
-            categoryInitFirst=false;
         }else if(loadCount>20){
             clearInterval(countCode);
             countCode = "";
@@ -270,6 +395,12 @@ function productDetailInit(){
     var countCode2 = setInterval( function() {
         loadCount2++;
         if($(".dev-goodsImage-display:first-child").attr("src") != undefined){
+            var payHTML = '<div class="payBtnArea"><span>購入</span></div>';
+
+            $("body").append(payHTML);
+            $(".item-view#skin1-container section.form .option").prepend('<button type="button" class="optionClose"><span></span></button>');
+            $(".item-view#skin1-container section.form").addClass("incomplete");
+
             var tabHTML = '<ul class="productDetailTab">';
             tabHTML += '<li id="cospopDetail">商品情報</li>';
             tabHTML += '<li id="cospopReview">レビュー</li>';
@@ -340,11 +471,129 @@ function productDetailInit(){
                 });
             });
 
+            $(".item-view#skin1-container section.contents:first-child > span").after("<div class='productInfo'></div>");
+            $(".item-view#skin1-container section.form .option form fieldset div .item-option>div.box-quantity").after("<div class='deliveryMsg'>5000円以上のご注文で<br/>配送料無料！</div>")
+
+            // $.ajax({
+            //     url: "https://cospop.github.io/review.json",
+            //     type: 'GET',
+            //     async: false,
+            //     success: function(data) {
+            //         console.log(data);
+            //     }
+            // });
+
+            clearInterval(countCode2);
+            countCode2 = "";
+            loadCount2=0;
+        }else if(loadCount2>20){
             clearInterval(countCode2);
             countCode2 = "";
             loadCount2=0;
         }
     },200);
+
+    $(".item-view#skin1-container .contents.reviews").addClass("active");
+}
+
+function orderInit(){
+    var loadCount3=0;
+
+    var countCode3 = setInterval( function() {
+        loadCount3++;
+        if($(".container.order").length>0 && $(".container.order order-user-info").length>0 && $(".container.order order-non-member-join").length>0 && $(".container.order order-shipping-address").length>0 && $(".container.order order-delivery-option").length>0 && $(".container.order order-payment").length>0 && $(".shipping .price").text()!=""){
+            $(".container.order .buying-guest .choice-join").remove();
+            $(".container.order .orderer-info .body.sg_v > form fieldset label[for='OrderUserInfo-name2a']").text("英文");
+            $(".container.order .buying-guest .body > form fieldset > div > div.ng-scope label[for='OrderNonMemberJoin-name2a']").text("英文");
+            $(".container.order order-price-info .total.detail button.button.buy").after("<button type='button' class='button buy2'><span>注文確定</span></button>");
+            $(".container.order order-non-member-join label[for='OrderNonMemberJoin-password']").parent("div").after("<div></div>");
+            $(".container.order order-non-member-join label[for='OrderNonMemberJoin-name']").parent("div").appendTo($(".container.order order-non-member-join label[for='OrderNonMemberJoin-password']").parent("div").next());
+            $(".container.order order-non-member-join label[for='OrderNonMemberJoin-tel']").parent("div").appendTo($(".container.order order-non-member-join label[for='OrderNonMemberJoin-password']").parent("div").next());
+
+            $(".container.order order-user-info label[for='OrderUserInfo-name']").parent("div").after("<div id='infoArea'></div>");
+            $(".container.order order-user-info label[for='OrderUserInfo-name']").parent("div").appendTo($(".container.order order-user-info label[for='OrderUserInfo-name']").parent("div").next());
+            $(".container.order order-user-info label[for='OrderUserInfo-phone']").parent("div").appendTo($(".container.order order-user-info label[for='OrderUserInfo-name']").parent("div").parent("div"));
+
+            var orderInfo = {
+                "name" : {
+                    "target" : $(".container.order order-shipping-address input#OrderShippingAddress-ReceiptName"),
+                    "orig" : $(".container.order order-user-info input#OrderUserInfo-name")
+                },
+                "tel" : {
+                    "target" : $(".container.order order-shipping-address input#OrderShippingAddress-Phone"),
+                    "orig" : $(".container.order order-user-info input#OrderUserInfo-phone")
+                }
+            };
+
+            for(key in orderInfo) {
+                if(orderInfo[key].target.val() == ""){
+                    orderInfo[key].target.val(orderInfo[key].orig.val());
+                    orderInfo[key].target.trigger('input');
+                }
+            }
+
+            var payMethodHTML = '';
+            payMethodHTML += '<div id="newPayMethod" class="box-select">';
+            payMethodHTML += '<select>';
+            payMethodHTML += '<option data-radio="" data-alert="お支払い方法を選択してください">決済方法選択</option>';
+            payMethodHTML += '<option data-radio="pay_paytype_MAN" data-alert="※ 代引き手数料が追加されます。">代金引換</option>';
+            payMethodHTML += '<option data-radio="pay_paytype_BANK" data-alert="※ 注文確定後、注文完了ページから決済手続きを進めてください。\n※ 「決済するボタン」をクリックすると、「決済手続き画面」が表示されます。">銀行振込</option>';
+            payMethodHTML += '<option data-radio="pay_paytype_TELEGRAM_CARD_REQUEST" data-alert="※ 注文確定後、注文完了ページから決済手続きを進めてください。\n※ 「決済するボタン」をクリックすると、「決済手続き画面」が表示されます。">クレジットカード</option>';
+            payMethodHTML += '</select>';
+            payMethodHTML += '</div>';
+
+            $(payMethodHTML).insertBefore($(".container.order order-price-info ul.set-total"));
+
+            orderMenuOn();
+
+            $(".container.order order-user-info").css("display", "block");
+            $(".container.order order-non-member-join").css("display", "block");
+            $(".container.order order-shipping-address").css("display", "block");
+            $(".container.order order-delivery-option").css("display", "block");
+
+            clearInterval(countCode3);
+            countCode3 = "";
+            loadCount3 = 0;
+        }else if(loadCount3>20){
+            clearInterval(countCode3);
+            countCode3 = "";
+            loadCount3=0;
+        }
+    },200);
+}
+
+function orderMenuOn(){
+    if($(".container.order order-user-login > div").hasClass("on")){
+        $(".container.order").addClass("orderFirst");
+        $(".container.order order-non-member-join").insertAfter($(".container.order order-user-login"));
+        $(".container.order order-user-login .sub-title-page > span").text("会員注文");
+        $(".container.order order-non-member-join input[type='password']").attr("placeholder", "注文のパスワード");
+    }else{
+        $(".container.order order-user-info .orderer-info").removeClass("select");
+        $(".container.order order-user-info .orderer-info").removeClass("off");
+        $(".container.order order-user-info .orderer-info").addClass("on");
+
+        $(".container.order order-non-member-join .sub-title-page .box-btn button.edit").trigger("click");
+        var loadCount=0;
+
+        var countCode = setInterval( function() {
+            loadCount++;
+            if($(".container.order order-shipping-address div.shipping-address").length>0 && ($(".container.order order-shipping-address div.shipping-address").hasClass("select") || $(".container.order order-shipping-address div.shipping-address").hasClass("off"))){
+                $(".container.order order-shipping-address .sub-title-page .box-btn button.edit").trigger("click");
+                clearInterval(countCode);
+                countCode = "";
+                loadCount=0;
+            }else if(loadCount>20){
+                clearInterval(countCode);
+                countCode = "";
+                loadCount=0;
+            }
+            $(".container.order order-payment .sub-title-page .box-btn button.edit").trigger("click");
+        },200);
+
+        $(".container.order order-delivery-option .sub-title-page .box-btn button.edit").trigger("click");
+        //$(".container.order order-payment .sub-title-page .box-btn button.edit").trigger("click");
+    }
 }
 
 function categoryProductSetting(){

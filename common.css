@@ -12,6 +12,21 @@ body, nav{
 
 select{ font-size: 16px !important; }
 
+footer .footer-menu ul li a span{
+    font-size: 0.2em !important;
+    font-weight: 100;
+}
+
+footer#skin1-footer.active a.a-top {
+    display: block;
+    bottom: 80px !important;
+    display: none !important;
+}
+
+footer .footer-copyright div{
+    font-weight: 400;
+}
+
 .style-item-grid li a > span.rating {
     display:none;
 }
@@ -215,10 +230,48 @@ nav.category.dev-menuTree div.fix{
 
 .item-view#skin1-container section.form .addition{
     margin-top: 25px !important;
+    font-size: 0.8em;
+}
+
+.item-view#skin1-container section.form .addition .wish,
+.category#skin1-container .style-item-list li a > div.wishCount-list {
+    display: none !important;
+}
+
+.style-item-list li a > span.name, .col.style-item-list li a > span.name {
+    margin-top: 5px !important;
+}
+
+.item-view#skin1-container section.form .data .name {
+    margin-bottom: 0px !important;
+}
+
+.item-view#skin1-container section.form .addition .reviews .rating>*>*:before,
+.item-view#skin1-container section.form .addition .reviews .rating>*>*:after,
+.item-view#skin1-container section.form .addition .reviews .rating>* label:before,
+.item-view#skin1-container section.form .addition .reviews .rating>* label:after {
+    font-size: 1.6em !important;
+}
+
+.item-view#skin1-container section.form .addition .reviews .rating{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.item-view#skin1-container section.form .addition .reviews > span{
+    vertical-align: middle;
+}
+
+.item-view#skin1-container .contents.reviews ul{
+    margin-top: 0px !important;
+}
+
+.item-view#skin1-container .contents.reviews ul li div>span.title {
+    display: none;
 }
 
 .description-text{
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 .container.item-view .taxNfree_include{
@@ -226,7 +279,7 @@ nav.category.dev-menuTree div.fix{
 }
 
 .category#skin1-container .style-item-grid li a > span.name {
-    width:80% !important;
+    width:100% !important;
     min-height: 32px !important;
     text-align:left !important;
     display:inline-block !important;
@@ -239,6 +292,7 @@ nav.category.dev-menuTree div.fix{
     min-height: 32px;
     margin-top: 5%;
     text-align:center;
+    display: none;
 }
 
 .category#skin1-container .style-item-grid li a > div.wishCount-list{
@@ -271,12 +325,175 @@ button.buy {
     color:#ffffff !important;
 }
 
+button:disabled{
+    border: 1px solid gainsboro !important;
+    cursor: default !important;
+    border-color: #e9e9e9 !important;
+    color: #d0d0d0 !important;
+    background-color: #f6f6f6 !important;
+}
+
+.payBtnArea{
+    position: fixed;
+    width:100%;
+    bottom:0;
+    left:0;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    background-color: #52D2F5 !important;
+    z-index: 4000;
+    height:60px;
+    text-align: center;
+    color:#ffffff;
+    line-height: 60px;
+    font-size: 1.5em;
+}
+
+.payBtnArea.viewOn{
+    display: none;
+}
+
 .container.item-view section.form .box-btn .userActionSec button.goPayment:hover,
 .container.item-view section.form .box-btn .userActionSec button.goPayment:focus,
 .container.item-view section.form .box-btn .userActionSec button.goPayment:active,
 .button.buy .box-btn{
     background-color: #4fc3e2 !important;
     border: 1px solid #4fc3e2 !important;
+}
+
+.container.order label,
+.container.order input,
+.container.order select,
+.container.order order-user-login .sign-in-email span{
+    font-size: 0.9285714286rem !important;
+}
+
+.container.order order-user-login,
+.container.order order-user-info,
+.container.order order-non-member-join,
+.container.order order-shipping-address,
+.container.order order-delivery-option,
+.container.order order-payment,
+.container.order order-user-info form button[type='submit']:not(.err),
+.container.order order-non-member-join form button[type='submit']:not(.err),
+.container.order order-shipping-address form button[type='button'],
+.container.order order-shipping-address form button[type='submit']:not(.err),
+.container.order order-delivery-option button[type='button'],
+.container.order order-payment form button[type='submit']:not(.err),
+.container.order .sub-title-page .box-btn button.edit,
+.container.order order-price-info > div.total button.button.buy,
+.container.order.orderFirst order-price-info > div.total button.buy2,
+.container.order.orderFirst order-price-info .total.detail #newPayMethod,
+.container.order order-price-info .total.detail ul.set-total li.pay-method{
+    display: none;
+}
+
+.container.order.orderFirst order-non-member-join form button[type='submit'],
+.container.order.orderFirst order-user-login{
+    display: block;
+}
+
+.container.order.orderFirst order-shipping-address,
+.container.order.orderFirst order-payment,
+.container.order.orderFirst order-delivery-option{
+    display:none !important;
+}
+
+.container.order.orderFirst order-non-member-join{
+    margin-top: 20px;
+}
+
+.container.order order-non-member-join .buying-guest .body > form fieldset > div:not(.choice-join) > div:nth-of-type(5){
+    clear: none !important;
+}
+
+.container.order order-non-member-join .buying-guest .body > form fieldset > div:not(.choice-join) > div:nth-of-type(3) > div,
+.container.order order-shipping-address form fieldset div.name,
+.container.order order-user-info #infoArea > div{
+    width:48% !important;
+    display: inline-block;
+}
+
+.container.order order-non-member-join .buying-guest .body > form fieldset > div:not(.choice-join) > div:nth-of-type(3) > div:last-child,
+.container.order order-shipping-address form fieldset div.tel,
+.container.order order-user-info #infoArea > div:last-child{
+    width:48%;
+    display: inline-block;
+    margin-top: 0px !important;
+    float:right;
+}
+
+.container.order order-shipping-address form fieldset div.zip button{
+    display: block !important;
+}
+
+.container.order .orderer-info .body > form fieldset > div > div:nth-of-type(2) .box-input:nth-of-type(n + 2){
+    margin-top: 10px !important;
+    margin-left: 0px !important;
+}
+
+.container.order order-price-info #newPayMethod {
+    margin-bottom: 15px;
+}
+
+.container.order order-price-info > div.total button.buy2 {
+    background-color: #52D2F5 !important;
+    border: 1px solid #52D2F5 !important;
+    color: #ffffff !important;
+}
+
+.container.order .sub-title-page{
+    line-height: 30px !important;
+}
+
+.container.order .body > div,
+.container.order .body > form fieldset:not(.payment){
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.container.order .add-shipping-address > form > fieldset > .box-btn{
+    max-width: 100% !important;
+}
+
+.container.order .box-btn > button.err,
+.container.order .add-shipping-address > form > fieldset > .box-btn > button.err{
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.container.order order-delivery-option .sub-title-page{
+    display: none !important;
+}
+
+.container.order order-delivery-option .body .delivery-method > div.ng-scope{
+    width: 33%;
+    min-width: 33% !important;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.container.order order-delivery-option .body .delivery-method > div.ng-scope + div{
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 0px !important;
+    float:right;
+    width: 65%;
+}
+
+.container.order order-delivery-option .body .delivery-method > div.ng-scope label,
+.container.order order-delivery-option .body .delivery-method > div.ng-scope + div label{
+    font-size: 0.9285714286rem !important;
+}
+
+.container.order order-delivery-option .body .delivery-method > div.ng-scope + div textarea{
+    line-height: 2.2 !important;
+    font-size: 0.9285714286rem !important;
+}
+
+.container.order order-delivery-option .body .delivery-method > div.ng-scope + div .box-textarea{
+    height: 34px !important;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .order#skin1-container,
@@ -300,6 +517,34 @@ button.buy {
 .order-complete#skin1-container .order-success .body>div>div .num span {
     color: #ffef36 !important;
     font-weight:bold !important;
+}
+
+.container.order .orderer-info .body.sg_v > form fieldset > div > div:nth-of-type(2) .box-input{
+    width: 48% !important;
+    display: inline-block;
+}
+
+.container.order .orderer-info .body.sg_v > form fieldset > div > div:nth-of-type(2) .box-input:last-child{
+    margin-top: 0px !important;
+    float:right;
+}
+
+.container.order#skin1-container order-delivery-option .body > div.delivery-method{
+    border-top:none !important;
+}
+
+.container.order .buying-guest .body > form fieldset > div > div.ng-scope .box-input{
+    width: 48% !important;
+    display: inline-block;
+}
+
+.container.order .buying-guest .body > form fieldset > div > div.ng-scope .box-input:last-child{
+    margin-top: 0px !important;
+    float:right;
+}
+
+.container.order .shipping-address.new:not(.select) .add-shipping-address .street-address + div{
+    display: none;
 }
 
 .account#skin1-container>div>.sign-in div.sign-in-email{
@@ -356,6 +601,10 @@ button.buy {
     display:none;
 }
 
+#skin1-container .set-layout>.body>*>nav {
+    order: 3 !important;
+}
+
 .paging a{
     border-radius:40px !important;
 }
@@ -373,6 +622,26 @@ a.button.join {
 a.button.join:hover, a.button.join:focus, a.button.join.active {
     background-color: #4fc3e2 !important;
     border: 1px solid #4fc3e2 !important;
+}
+
+.item-view#skin1-container section.form button.optionClose{
+    display: none;
+}
+
+.item-view#skin1-container section.form .option div.minMaxOrderUnit:before{
+    content: "注文殺到 !　";
+}
+
+.item-view#skin1-container section.form .option form fieldset div .item-option>div.box-quantity{
+    vertical-align: middle;
+}
+
+.item-view#skin1-container section.form .option form fieldset div .item-option>div.deliveryMsg{
+    vertical-align: middle;
+    margin-left: 20px;
+    vertical-align: middle;
+    color: #FF6666;
+    font-size: 13px;
 }
 
 /* 0-320 */
@@ -409,6 +678,19 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
         padding-top: 0px !important;
     }
 
+    #skin1-container.container.order .sub-title-page{
+        display:block !important;
+        color: #727579 !important;
+    }
+
+    #skin1-container.container.order order-delivery-option .sub-title-page{
+        display:none !important;
+    }
+
+    .container.order .total{
+        margin-top: 0px !important;
+    }
+
     .mypage#skin1-container nav.category>div>ul>li>a:hover:not(.active)>span:after,
     .mypage#skin1-container nav.category>div>ul>li>a.active:not(.active)>span:after {
         background-color: #52D2F5 !important;
@@ -425,6 +707,10 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
         margin-bottom: -3px;
         height: 3px;
         background-color: #888D94;
+    }
+
+    .payBtnArea, .monco-snb{
+        display: none;
     }
 }
 
@@ -510,6 +796,10 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
         padding-bottom:90px !important;
     }
 
+    .productList[data-type="main"] > div{
+        border-right: 0 !important;
+    }
+
     .productList[data-type="main"] > div > div:first-child{
         padding-left:5%;
     }
@@ -525,8 +815,130 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
         font-weight:bold !important;
     }
 
+    .item-view#skin1-container section.form .option{
+        position: fixed;
+        z-index: 4000;
+        left: 0;
+        bottom: 0;
+        display: none;
+    }
+
+    .item-view#skin1-container section.form .option.viewOn{
+        display: block;
+        -moz-box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .item-view#skin1-container section.form button.optionClose{
+        display: block;
+        position: relative;
+        z-index: 810;
+        display: block;
+        width: 50px;
+        height: 24px;
+        padding: 0;
+        margin: 0 auto;
+        border: 0;
+        border-radius: 3px 3px 0 0;
+        -moz-box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.15);
+        -webkit-box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.15);
+        background-color: #ffffff;
+        top:-48px;
+    }
+
+    .item-view#skin1-container section.form button.optionClose span:before {
+        position: absolute;
+        font-family: tqoon !important;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 2.1428571429rem;
+        top: -2px;
+        left: calc(50% - 1.0714285714rem);
+        content: "";
+    }
+
+    .item-view#skin1-container section.form .option form fieldset div .item-option,
+    .item-view#skin1-container section.form .item-option.statement ul{
+        margin-top: 0px !important;
+    }
+
+    .item-view#skin1-container section.form .item-option.statement > label,
+    .item-view#skin1-container section.form .item-option.statement span.quantity{
+        display: none;
+    }
+
+    .item-view#skin1-container section.form.incomplete .item-option.statement,
+    .item-view#skin1-container section.form.incomplete div.dev-pgi{
+        display:none;
+    }
+
+    .item-view#skin1-container section.form.incomplete .box-btn{
+        margin-top: 30px;
+    }
+
+    .item-view#skin1-container .set-layout>.body>div>section.form>.image {
+        margin-top: 0px;
+    }
+
+    .monco-snb{
+        margin-top: 15px;
+    }
+
+    .monco-snb ul{
+        margin: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .monco-snb li{
+        display: table;
+        width: 100%;
+        height: 100%;
+        margin-top: 1px !important;
+        padding: 0 !important;
+    }
+
+    .monco-snb li a{
+        position: relative;
+        display: table-cell;
+        padding-left: 1.7142857143rem;
+        padding-right: 1.7142857143rem;
+        height: 40px;
+        line-height: 40px;
+        font-size: .9285714286rem;
+        color: #727579;
+        background-color: #eee;
+    }
+
+    .monco-snb li a.active{
+        background-color: #e1e1e1;
+    }
+
+    .monco-snb li a:hover span:before,
+    .monco-snb li a:focus span:before,
+    .monco-snb li a.active span:before {
+        position: absolute;
+        display: block;
+        top:13px;
+        left: 0;
+        width: 8px;
+        height: 13.3333333333px;
+        content: "";
+        background-color: #888d94;
+    }
+
     footer#skin1-footer{
         display: block !important;
+        position: initial !important;
+    }
+
+    footer#skin1-footer address{
+        border-left: none !important;
     }
 }
 
@@ -580,19 +992,43 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
 .item-view#skin1-container section.contents>h2:hover{
     color:inherit !important;
 }
+
+.item-view#skin1-container section.contents:first-child > span{
+    display: none;
+}
+
+.item-view#skin1-container section.contents:first-child > span.viewOn{
+    display: block;
+}
+
+.item-view#skin1-container section.contents:first-child > .productInfo{
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.5em;
+    color:#bdc3c7;
+    margin-top: 20px;
+}
+
+.item-view#skin1-container section.contents:first-child > .productInfo:before{
+    content:"もっと見る▽";
+}
+
+.item-view#skin1-container section.contents:first-child > .productInfo.viewOn:before{
+    content:"閉じる△";
+}
+
 .productList[data-type="main"]{
     margin-top:10px;margin-bottom:10px;
 }
 
 .productList[data-type="main"] > div{
-    border-top:2px solid #e5e5e6;
-    border-bottom:2px solid #e5e5e6;
+    border:2px solid #e5e5e6;
     white-space: nowrap;
 }
 
 .productList[data-type="main"] img{
     vertical-align:middle;
-    width:30%;
+    width:23%;
 }
 
 .productList[data-type="main"] > div:last-child{
@@ -600,19 +1036,18 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
 }
 
 .productList[data-type="main"] > div > div:first-child{
-    width:80%;
-    border-right:2px solid #e5e5e6;
-    padding-top:10px;
-    padding-bottom:10px;
+    width:100%;
+    padding:10px;
 }
 
 .productList[data-type="main"] > div > div:nth-child(2){
     width:20%;
     text-align:center;
+    display: none !important;
 }
 
 .productList[data-type="main"] > div .infoArea{
-    width:65%;
+    width:70%;
     padding-left:10px;
     font-size:0.9em
 }
