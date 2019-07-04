@@ -1,36 +1,5 @@
 {
-    "94992" : {
-        [
-            {
-                "writer" : "review1",
-                "contents" : "1111",
-                "score" : 5,
-                "imageCount" : 1
-            },
-            {
-                "writer" : "review2",
-                "contents" : "2222",
-                "score" : 5,
-                "imageCount" : 0
-            },
-            {
-                "writer" : "review3",
-                "contents" : "3333",
-                "score" : 5,
-                "imageCount" : 0
-            },
-            {
-                "writer" : "review4",
-                "contents" : "4444",
-                "score" : 5,
-                "imageCount" : 0
-            },
-            {
-                "writer" : "review5",
-                "contents" : "5555",
-                "score" : 5,
-                "imageCount" : 0
-            }
-        ]
-    }
+    "title" : "1111",
+    "contents" : "1111"
+
 }
