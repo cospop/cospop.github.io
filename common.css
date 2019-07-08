@@ -181,6 +181,11 @@ nav.category.dev-menuTree div.fix{
     margin:0 auto;
 }
 
+.item-view#skin1-container section.contents.reviews > div > ul:not(.productReview),
+.item-view#skin1-container section.contents.reviews > div > div:not(.productReview){
+    /*display: none;*/
+}
+
 .item-view#skin1-container .set-layout .bread-crumb {
     display: none;
 }
@@ -377,14 +382,20 @@ button:disabled{
 .container.order order-non-member-join form button[type='submit']:not(.err),
 .container.order order-shipping-address form button[type='button'],
 .container.order order-shipping-address form button[type='submit']:not(.err),
+.container.order order-shipping-address .add-shipping-address .set-default,
 .container.order order-delivery-option button[type='button'],
 .container.order order-payment form button[type='submit']:not(.err),
 .container.order .sub-title-page .box-btn button.edit,
 .container.order order-price-info > div.total button.button.buy,
 .container.order.orderFirst order-price-info > div.total button.buy2,
-.container.order.orderFirst order-price-info .total.detail #newPayMethod,
+.container.order.orderFirst order-price-info .total #newPayMethod,
 .container.order order-price-info .total.detail ul.set-total li.pay-method{
     display: none;
+}
+
+.container.order input::placeholder,
+.container.order textarea::placeholder{
+    color:#c7c7c7;
 }
 
 .container.order.orderFirst order-non-member-join form button[type='submit'],
@@ -424,6 +435,21 @@ button:disabled{
 
 .container.order order-shipping-address form fieldset div.zip button{
     display: block !important;
+}
+
+.container.order order-shipping-address form fieldset input#OrderShippingAddress-ZipCode{
+    cursor:pointer;
+}
+
+.container.order order-shipping-address .addressAutoInput{
+    float:right;
+    line-height: 26px;
+}
+
+.container.order order-shipping-address .addressAutoInput button{
+    height: 20px;
+    font-size: 0.8rem;
+    max-width:300px;
 }
 
 .container.order .orderer-info .body > form fieldset > div > div:nth-of-type(2) .box-input:nth-of-type(n + 2){
@@ -658,6 +684,52 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
     }
 }
 
+@media screen and (max-width: 47.99em) {
+    .container.order.orderFirst .total.bottom-fix .set-total li.price-total{
+        width:100%;
+    }
+
+    .container.order .total.bottom-fix.detail .set-total li.subtotal {
+        padding-bottom: 5px !important;
+        border-bottom: none !important;
+        margin-bottom: 0px !important;
+    }
+
+    .container.order .total.bottom-fix.detail .set-total li.shipping {
+        margin-top: 0px !important;
+        padding-bottom: 5px !important;
+    }
+
+    .container.order .total.bottom-fix.detail .set-total li.pay-method {
+        display: none !important;
+    }
+
+    .container.order .total.bottom-fix .set-total li.price-total,
+    .container.order-complete .total.bottom-fix .set-total li.price-total {
+        width: 100% !important;
+    }
+
+    .container.order .total.bottom-fix.detail .set-total li.price-total {
+        border-top: 1px solid #e2e2e2 !important;
+    }
+
+    .container.order .total.bottom-fix .set-total li.btn-wrap,
+    .container.order-complete .total.bottom-fix .set-total li.btn-wrap{
+        width: 100%;
+    }
+
+    .container.order .total.bottom-fix .set-total li.btn-wrap .box-btn button.buy2,
+    .container.order-complete .total.bottom-fix .set-total li.btn-wrap .box-btn button {
+        width: 100% !important;
+        max-width: 100%;
+        height: 35px !important;
+    }
+
+    .container.order order-price-info #newPayMethod {
+        margin-bottom: 10px;
+    }
+}
+
 /* 480-768 */
 @media screen and (min-width: 30em) and (max-width: 47.99em) {
     .col-480-768-d-n{
@@ -712,6 +784,72 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
     .payBtnArea, .monco-snb{
         display: none;
     }
+
+    .item-view#skin1-container .contents.reviews ul.productReview li{
+        min-height: 105px;
+    }
+
+    .item-view#skin1-container .contents.reviews ul.productReview li > div > div img {
+        width:100%;
+        margin-left: 0px;
+        margin-top: 3px;
+    }
+
+    .item-view#skin1-container .contents.reviews ul.productReview li > div > div.small img {
+        max-width: 150px;
+        min-height: 100px;
+    }
+
+    .item-view#skin1-container .contents.reviews ul.productReview li > div > div{
+        padding: 0px;
+    }
+
+    .item-view#skin1-container .contents.reviews ul.productReview li > div > div > p{
+        vertical-align: top;
+        margin-left: 0px;
+        width:100%;
+        margin-top: 0px;
+    }
+
+    .item-view#skin1-container .contents.reviews ul.productReview li > div > div > img+p{
+        margin-top: 10px;
+    }
+
+    .item-view#skin1-container .contents.reviews ul.productReview li > div > div.small > p{
+        display: inline-block;
+    }
+
+    .item-view#skin1-container .contents.reviews ul.productReview li > div > div.small > img+p{
+        margin-left: 15px;
+        width: 655px;
+        margin-top: 0px;
+    }
+
+    .item-view#skin1-container .contents.reviews ul.productReview li > div > div.small > p span{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        max-height: 77px;
+    }
+
+    .item-view#skin1-container .contents.reviews ul.productReview li > div > div .foldBtn{
+        display: block;
+        margin-top: 5px;
+    }
+
+    .item-view#skin1-container .contents.reviews ul.productReview li > div > div > span.info{
+        margin-left: 0px;
+    }
+
+    /*
+    .item-view#skin1-container .contents.reviews ul.productReview li > div{
+        min-height: 130px;
+    }
+
+    */
 }
 
 @media screen and (min-width: 64em){

@@ -182,9 +182,41 @@ $(window).load(function(){
         }
     });
 
+    $(document).on("click", ".item-view#skin1-container .contents.reviews ul.productReview .foldBtn", function(e){
+        if($(this).attr("data-type")=="open"){
+            $(this).parents("div").removeClass("small");
+        }else{
+            $(this).parents("div").addClass("small");
+        }
+
+        $(this).parent().find("button.foldBtn.ng-hide").removeClass("ng-hide");
+        $(this).addClass("ng-hide");
+    });
+
+    $(document).on("click", ".container.order order-shipping-address form fieldset input#OrderShippingAddress-ZipCode", function(e){
+        $(".container.order order-shipping-address form fieldset div.zip button").trigger("click");
+    });
+
     $(document).on("click", ".container.order order-price-info .total.detail button.buy2", function(e){
         e.stopPropagation();
         e.preventDefault();
+
+        if($(".container.order order-user-info input#OrderUserInfo-phone").val().length<10){
+            $(".container.order order-user-info input#OrderUserInfo-phone").addClass("err");
+            $(".container.order order-user-info input#OrderUserInfo-phone").parent("div.box-input").addClass("err");
+            $(".container.order order-user-info input#OrderUserInfo-phone").parents("fieldset").children(".box-btn").find("button").addClass("err");
+            $(".container.order order-user-info input#OrderUserInfo-phone").parents("fieldset").children(".box-btn").find("button").attr("disabled", true);
+            return false;
+        }
+
+        if($(".container.order order-shipping-address input#OrderShippingAddress-Phone").val().length<10){
+            $(".container.order order-shipping-address input#OrderShippingAddress-Phone").addClass("err");
+            $(".container.order order-shipping-address input#OrderShippingAddress-Phone").parent("div.box-input").addClass("err");
+            $(".container.order order-shipping-address input#OrderShippingAddress-Phone").parents("fieldset").children(".box-btn").find("button").addClass("err");
+            $(".container.order order-shipping-address input#OrderShippingAddress-Phone").parents("fieldset").children(".box-btn").find("button").attr("disabled", true);
+            return false;
+        }
+
         $(".container.order order-user-info div:not('d-n') form button[type='submit']").trigger("click");
         $(".container.order order-non-member-join div:not('d-n') form button[type='submit']").trigger("click");
         $(".container.order order-shipping-address form button[type='submit']").trigger("click");
@@ -226,17 +258,95 @@ $(window).load(function(){
         }
     });
 
-    $(document).on("submit", ".container.order.orderFirst order-non-member-join form", function(e){
-        if($(".container.order order-non-member-join input[type='password']").val().length<1){
+    $(document).on("click", ".container.order.orderFirst order-non-member-join form button[type='submit'] span", function(e){
+        if($(".container.order order-non-member-join input[type='password']").val().length<4){
             $(".container.order order-non-member-join input[type='password']").parent().addClass("err");
+            $(".container.order order-non-member-join input[type='password']").parents("form").addClass("ng-invalid");
+            $(".container.order order-non-member-join input[type='password']").parents("form").removeClass("ng-valid");
+            $(this).parents("button").addClass("err");
+            $(this).parents("button").attr("disabled", true);
+        }
+
+        if($(".container.order order-non-member-join input#OrderNonMemberJoin-tel").val().length<10){
+            $(".container.order order-non-member-join input#OrderNonMemberJoin-tel").parent().addClass("err");
+            $(".container.order order-non-member-join input#OrderNonMemberJoin-tel").parents("form").addClass("ng-invalid");
+            $(".container.order order-non-member-join input#OrderNonMemberJoin-tel").parents("form").removeClass("ng-valid");
+            $(this).parents("button").addClass("err");
+            $(this).parents("button").attr("disabled", true);
         }
     });
 
+    $(document).on("click", ".container.order order-shipping-address .addressAutoInput button", function(e){
+        var orderInfo = {
+            "name" : {
+                "target" : $(".container.order order-shipping-address input#OrderShippingAddress-ReceiptName"),
+                "orig" : $(".container.order order-user-info input#OrderUserInfo-name")
+            },
+            "tel" : {
+                "target" : $(".container.order order-shipping-address input#OrderShippingAddress-Phone"),
+                "orig" : $(".container.order order-user-info input#OrderUserInfo-phone")
+            }
+        };
+
+        for(key in orderInfo) {
+            if(orderInfo[key].target.val() == ""){
+                orderInfo[key].target.val(orderInfo[key].orig.val());
+                orderInfo[key].target.trigger('input');
+                orderInfo[key].target.trigger('keyup');
+            }
+        }
+    });
+
+
     $(document).on("keyup", ".container.order order-non-member-join input[type='password']", function(e){
-        if($(this).val().length<1){
+        if($(this).val().length<4){
             $(this).parent().addClass("err");
+            $(".container.order.orderFirst order-non-member-join form button[type='submit']").addClass("err");
+            $(".container.order.orderFirst order-non-member-join form button[type='submit']").attr("disabled", true);
         }else{
             $(this).parent().removeClass("err");
+            $(".container.order.orderFirst order-non-member-join form button[type='submit']").removeClass("err");
+            $(".container.order.orderFirst order-non-member-join form button[type='submit']").attr("disabled", false);
+        }
+    });
+
+    $(document).on("keyup", ".container.order order-non-member-join input#OrderNonMemberJoin-tel", function(e){
+        if($(this).val().length<10){
+            $(this).parent().addClass("err");
+            $(".container.order.orderFirst order-non-member-join form button[type='submit']").addClass("err");
+            $(".container.order.orderFirst order-non-member-join form button[type='submit']").attr("disabled", true);
+        }else{
+            $(this).parent().removeClass("err");
+            $(".container.order.orderFirst order-non-member-join form button[type='submit']").removeClass("err");
+            $(".container.order.orderFirst order-non-member-join form button[type='submit']").attr("disabled", false);
+        }
+    });
+
+    $(document).on("keyup", ".container.order order-user-info input#OrderUserInfo-phone", function(e){
+        if($(this).val().length<10){
+            $(this).addClass("err");
+            $(this).parent("div.box-input").addClass("err");
+            $(this).parents("fieldset").children(".box-btn").find("button").addClass("err");
+            $(this).parents("fieldset").children(".box-btn").find("button").attr("disabled", true);
+        }else{
+            $(this).removeClass("err");
+            $(this).parent("div.box-input").removeClass("err");
+            $(this).parents("fieldset").children(".box-btn").find("button").removeClass("err");
+            $(this).parents("fieldset").children(".box-btn").find("button").attr("disabled", false);
+        }
+    });
+
+    $(document).on("keyup", ".container.order order-shipping-address input#OrderShippingAddress-Phone", function(e){
+        if($(this).val().length<10){
+            $(this).addClass("err");
+            $(this).parent("div.box-input").addClass("err");
+            $(this).parents("fieldset").children(".box-btn").find("button").addClass("err");
+            $(this).parents("fieldset").children(".box-btn").find("button").attr("disabled", true);
+        }else{
+            $(this).removeClass("err");
+            $(this).parent("div.box-input").removeClass("err");
+            $(this).parents("fieldset").children(".box-btn").find("button").removeClass("err");
+            $(this).parents("fieldset").children(".box-btn").find("button").attr("disabled", false);
         }
     });
 
@@ -249,6 +359,7 @@ $(window).load(function(){
             $("#newPayMethod").removeClass("err");
             $('order-payment form .box-radio input[name="payType"]').prop('checked', false);
             $("label[for='"+opt.attr("data-radio")+"']").trigger("click");
+            $(".container.order order-payment button[type='submit']").trigger("click");
         }
     });
 
@@ -474,14 +585,7 @@ function productDetailInit(){
             $(".item-view#skin1-container section.contents:first-child > span").after("<div class='productInfo'></div>");
             $(".item-view#skin1-container section.form .option form fieldset div .item-option>div.box-quantity").after("<div class='deliveryMsg'>5000円以上のご注文で<br/>配送料無料！</div>")
 
-            // $.ajax({
-            //     url: "https://cospop.github.io/review.json",
-            //     type: 'GET',
-            //     async: false,
-            //     success: function(data) {
-            //         console.log(data);
-            //     }
-            // });
+            //productReviewInit(1);
 
             clearInterval(countCode2);
             countCode2 = "";
@@ -496,6 +600,64 @@ function productDetailInit(){
     $(".item-view#skin1-container .contents.reviews").addClass("active");
 }
 
+function productReviewInit(page){
+    var n = $(".item-view#skin1-container .contents.reviews").attr("ng-init").replace(/[^0-9]/g,"");
+    var r;
+    $.ajax({
+        url: "https://cospop.github.io/review.json",
+        type: 'GET',
+        async: false,
+        success: function(data) {
+            r = data[n];
+        }
+    });
+
+    // if(r.length)
+
+    if(r.length > 0){
+        var productReview = "";
+        productReview += '<ul class="productReview">';
+
+        $.each(r, function(idx, obj){
+            productReview += '<li>';
+            productReview += '<div>';
+            productReview += '<span class="rating"><span><span class="star s'+obj.score+'0"><span>star</span></span><span class="base"></span></span></span>';
+            productReview += '<div class="small">';
+            for(var i=0; i<obj.imageCount; i++){
+                productReview += '<img src="https://cospop.github.io/image/'+n+'/'+(idx+1)+'_'+(i+1)+'.jpg">';
+            }
+            productReview += '<p>';
+            productReview += '<span>'+obj.contents+'</span>';
+            if(obj.imageCount>0 || obj.contents.length>175){
+                productReview += '<button type="button" class="foldBtn" data-type="open">もっと見る</button>';
+                productReview += '<button type="button" class="foldBtn ng-hide" data-type="close">閉じる</button>';
+            }
+            productReview += '</p>';
+            productReview += '<span class="info"><span class="name">'+obj.writer+'</span></span>';
+            productReview += '</div>';
+            productReview += '</div>';
+            productReview += '</li>';
+        });
+
+        productReview += '</ul>';
+        productReview += '<div class="productReview">';
+        productReview += '</div>';
+
+        //$(".item-view#skin1-container section.contents.reviews > div").append(productReview);
+    }
+}
+
+function getTextLength(str) {
+        var len = 0;
+        for (var i = 0; i < str.length; i++) {
+            if (escape(str.charAt(i)).length == 6) {
+                len++;
+            }
+            len++;
+        }
+        return len;
+    }
+
 function orderInit(){
     var loadCount3=0;
 
@@ -509,28 +671,18 @@ function orderInit(){
             $(".container.order order-non-member-join label[for='OrderNonMemberJoin-password']").parent("div").after("<div></div>");
             $(".container.order order-non-member-join label[for='OrderNonMemberJoin-name']").parent("div").appendTo($(".container.order order-non-member-join label[for='OrderNonMemberJoin-password']").parent("div").next());
             $(".container.order order-non-member-join label[for='OrderNonMemberJoin-tel']").parent("div").appendTo($(".container.order order-non-member-join label[for='OrderNonMemberJoin-password']").parent("div").next());
+            $(".container.order order-non-member-join input#OrderNonMemberJoin-tel").attr("type", "tel");
 
             $(".container.order order-user-info label[for='OrderUserInfo-name']").parent("div").after("<div id='infoArea'></div>");
             $(".container.order order-user-info label[for='OrderUserInfo-name']").parent("div").appendTo($(".container.order order-user-info label[for='OrderUserInfo-name']").parent("div").next());
             $(".container.order order-user-info label[for='OrderUserInfo-phone']").parent("div").appendTo($(".container.order order-user-info label[for='OrderUserInfo-name']").parent("div").parent("div"));
+            $(".container.order order-user-info input#OrderUserInfo-phone").attr("type", "tel");
 
-            var orderInfo = {
-                "name" : {
-                    "target" : $(".container.order order-shipping-address input#OrderShippingAddress-ReceiptName"),
-                    "orig" : $(".container.order order-user-info input#OrderUserInfo-name")
-                },
-                "tel" : {
-                    "target" : $(".container.order order-shipping-address input#OrderShippingAddress-Phone"),
-                    "orig" : $(".container.order order-user-info input#OrderUserInfo-phone")
-                }
-            };
+            $(".container.order order-shipping-address form fieldset input#OrderShippingAddress-ZipCode").attr("readonly",true);
 
-            for(key in orderInfo) {
-                if(orderInfo[key].target.val() == ""){
-                    orderInfo[key].target.val(orderInfo[key].orig.val());
-                    orderInfo[key].target.trigger('input');
-                }
-            }
+            $(".container.order order-shipping-address .sub-title-page").append('<div class="addressAutoInput"><button type="button"><span>注文者情報と同一</span></button></div>');
+
+            $(".container.order order-shipping-address .addressAutoInput button").trigger("click");
 
             var payMethodHTML = '';
             payMethodHTML += '<div id="newPayMethod" class="box-select">';
@@ -567,7 +719,7 @@ function orderMenuOn(){
         $(".container.order").addClass("orderFirst");
         $(".container.order order-non-member-join").insertAfter($(".container.order order-user-login"));
         $(".container.order order-user-login .sub-title-page > span").text("会員注文");
-        $(".container.order order-non-member-join input[type='password']").attr("placeholder", "注文のパスワード");
+        $(".container.order order-non-member-join input[type='password']").attr("placeholder", "注文のパスワード(4文字以上)");
     }else{
         $(".container.order order-user-info .orderer-info").removeClass("select");
         $(".container.order order-user-info .orderer-info").removeClass("off");
@@ -578,8 +730,15 @@ function orderMenuOn(){
 
         var countCode = setInterval( function() {
             loadCount++;
-            if($(".container.order order-shipping-address div.shipping-address").length>0 && ($(".container.order order-shipping-address div.shipping-address").hasClass("select") || $(".container.order order-shipping-address div.shipping-address").hasClass("off"))){
+            if($(".container.order order-shipping-address div.shipping-address").length>0 && !$(".container.order order-shipping-address div.shipping-address").hasClass("memberOn") && ($(".container.order order-shipping-address div.shipping-address").hasClass("select") || $(".container.order order-shipping-address div.shipping-address").hasClass("off"))){
                 $(".container.order order-shipping-address .sub-title-page .box-btn button.edit").trigger("click");
+                clearInterval(countCode);
+                countCode = "";
+                loadCount=0;
+            }else if($(".container.order order-shipping-address #OrderShippingAddress-addrList0").length>0){
+                $(".container.order order-shipping-address div.shipping-address").addClass("memberOn");
+                $(".container.order order-shipping-address #OrderShippingAddress-addrList0").trigger("click");
+                $(".container.order order-shipping-address #OrderShippingAddress-addrList0").parent(".box-radio").find(".box-btn button").trigger("click");
                 clearInterval(countCode);
                 countCode = "";
                 loadCount=0;
@@ -592,7 +751,6 @@ function orderMenuOn(){
         },200);
 
         $(".container.order order-delivery-option .sub-title-page .box-btn button.edit").trigger("click");
-        //$(".container.order order-payment .sub-title-page .box-btn button.edit").trigger("click");
     }
 }
 
