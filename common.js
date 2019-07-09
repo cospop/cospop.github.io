@@ -297,6 +297,9 @@ $(window).load(function(){
         }
     });
 
+    $(document).on("click", ".item-view#skin1-container section.contents.reviews > div .newPaging a", function(e){
+        productReviewInit($(this).attr("data-page"));
+    });
 
     $(document).on("keyup", ".container.order order-non-member-join input[type='password']", function(e){
         if($(this).val().length<4){
@@ -585,7 +588,7 @@ function productDetailInit(){
             $(".item-view#skin1-container section.contents:first-child > span").after("<div class='productInfo'></div>");
             $(".item-view#skin1-container section.form .option form fieldset div .item-option>div.box-quantity").after("<div class='deliveryMsg'>5000円以上のご注文で<br/>配送料無料！</div>")
 
-            //productReviewInit(1);
+            productReviewInit(1);
 
             clearInterval(countCode2);
             countCode2 = "";
@@ -602,17 +605,59 @@ function productDetailInit(){
 
 function productReviewInit(page){
     var n = $(".item-view#skin1-container .contents.reviews").attr("ng-init").replace(/[^0-9]/g,"");
-    var r;
+    var r = new Array;
+    var addPage = 0;
+    var totalPage = 0;
+
     $.ajax({
         url: "https://cospop.github.io/review.json",
         type: 'GET',
         async: false,
         success: function(data) {
-            r = data[n];
+            if(data[n] != undefined){
+                addPage = data[n].length/5;
+                totalPage += Number(addPage);
+                if(addPage>=page){
+                    for(var i=5*(page-1); i<5*page; i++){
+                        for(var j=0; j<data[n][i].imageCount; j++){
+                            if(j==0){
+                                data[n][i].image = new Array;
+                            }
+                            data[n][i].image[j] = "https://cospop.github.io/image/" + n + "/" + (i+1) + '_' + (j+1) + ".jpg";
+                        }
+                        r.push(data[n][i]);
+                    }
+                }
+            }
         }
     });
 
-    // if(r.length)
+    $.ajax({
+        url: "https://www.cospop.jp/Plugins/GoodsReview/GetGoodsReviewList",
+        type: 'POST',
+        async: false,
+        dataType: "json",
+        data: {"goodsId":n, "paging":{"PageSize":5, "Page": (page-addPage)}},
+        success: function(data) {
+            totalPage += Number(data.TotalPage);
+            if(r.length <= 0){
+                $.each(data.List, function(idx, obj){
+                    var temp = {};
+                    temp.writer = obj.UserId;
+                    temp.contents = obj.Contents;
+                    temp.score = obj.StarPoint;
+                    if(obj.imgFilePath == ""){
+                        temp.imageCount = 0;
+                    }else{
+                        temp.imageCount = 1;
+                        temp.image = new Array;
+                        temp.image[0] = "https://www.cospop.jp" + obj.imgFilePath;
+                    }
+                    r.push(temp);
+                });
+            }
+        }
+    });
 
     if(r.length > 0){
         var productReview = "";
@@ -624,7 +669,7 @@ function productReviewInit(page){
             productReview += '<span class="rating"><span><span class="star s'+obj.score+'0"><span>star</span></span><span class="base"></span></span></span>';
             productReview += '<div class="small">';
             for(var i=0; i<obj.imageCount; i++){
-                productReview += '<img src="https://cospop.github.io/image/'+n+'/'+(idx+1)+'_'+(i+1)+'.jpg">';
+                productReview += '<img src="' + obj.image[i] + '">';
             }
             productReview += '<p>';
             productReview += '<span>'+obj.contents+'</span>';
@@ -633,17 +678,41 @@ function productReviewInit(page){
                 productReview += '<button type="button" class="foldBtn ng-hide" data-type="close">閉じる</button>';
             }
             productReview += '</p>';
-            productReview += '<span class="info"><span class="name">'+obj.writer+'</span></span>';
+            productReview += '<span class="info"><span class="name">'+ (obj.writer.length>3 ? obj.writer.replace(/(?<=.{3})./g,"*") : "***") +'</span></span>';
             productReview += '</div>';
             productReview += '</div>';
             productReview += '</li>';
         });
 
         productReview += '</ul>';
-        productReview += '<div class="productReview">';
-        productReview += '</div>';
+        productReview += '<div class="paging prev next newPaging"><div>';
+        productReview += '<a class="' + (page==1 || totalPage<6 ? "ng-hide" : "") + '" data-page="' + (page-1) + '"></a>';
+        productReview += '<a class="' + (page>3 && totalPage>5 ? "" : "ng-hide") + '" data-page="1">1</a>';
 
-        //$(".item-view#skin1-container section.contents.reviews > div").append(productReview);
+        var start = 0;
+        var end = 0;
+
+        if(totalPage<6){
+            start = 0;
+            end = totalPage;
+        }else{
+            start = page>3 ? page-3 : 0;
+            if((start+5)>totalPage){
+                start = totalPage-5;
+            }
+            end = start+5;
+        }
+
+        for(var i=start; i<end; i++){
+            productReview += '<a class="' + ((i+1)==page ? "active" : "") + '" data-page="' + (i+1) + '">' + (i+1) + '</a>';
+        }
+
+        productReview += '<a class="' + (totalPage-page>=3 && totalPage>5 ? "" : "ng-hide") + '" data-page="' + totalPage + '">' + totalPage + '</a>';
+        productReview += '<a class="' + (page==totalPage || totalPage<6 ? "ng-hide" : "") + '" data-page="' + (page+1) + '"></a>';
+        productReview += '</div></div>';
+
+        $(".item-view#skin1-container section.contents.reviews > div").html("");
+        $(".item-view#skin1-container section.contents.reviews > div").append(productReview);
     }
 }
 
@@ -663,7 +732,7 @@ function orderInit(){
 
     var countCode3 = setInterval( function() {
         loadCount3++;
-        if($(".container.order").length>0 && $(".container.order order-user-info").length>0 && $(".container.order order-non-member-join").length>0 && $(".container.order order-shipping-address").length>0 && $(".container.order order-delivery-option").length>0 && $(".container.order order-payment").length>0 && $(".shipping .price").text()!=""){
+        if($(".container.order").length>0 && $(".container.order order-user-info").length>0 && $(".container.order order-non-member-join").length>0 && $(".container.order order-shipping-address").length>0 && $(".container.order order-delivery-option").length>0 && $(".container.order order-payment").length>0){
             $(".container.order .buying-guest .choice-join").remove();
             $(".container.order .orderer-info .body.sg_v > form fieldset label[for='OrderUserInfo-name2a']").text("英文");
             $(".container.order .buying-guest .body > form fieldset > div > div.ng-scope label[for='OrderNonMemberJoin-name2a']").text("英文");

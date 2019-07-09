@@ -271,6 +271,15 @@ nav.category.dev-menuTree div.fix{
     margin-top: 0px !important;
 }
 
+.item-view#skin1-container .contents.reviews.active h2+div{
+    margin-top: -20px;
+}
+
+.item-view#skin1-container .contents.reviews ul li:nth-of-type(1) {
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
 .item-view#skin1-container .contents.reviews ul li div>span.title {
     display: none;
 }
@@ -784,72 +793,6 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
     .payBtnArea, .monco-snb{
         display: none;
     }
-
-    .item-view#skin1-container .contents.reviews ul.productReview li{
-        min-height: 105px;
-    }
-
-    .item-view#skin1-container .contents.reviews ul.productReview li > div > div img {
-        width:100%;
-        margin-left: 0px;
-        margin-top: 3px;
-    }
-
-    .item-view#skin1-container .contents.reviews ul.productReview li > div > div.small img {
-        max-width: 150px;
-        min-height: 100px;
-    }
-
-    .item-view#skin1-container .contents.reviews ul.productReview li > div > div{
-        padding: 0px;
-    }
-
-    .item-view#skin1-container .contents.reviews ul.productReview li > div > div > p{
-        vertical-align: top;
-        margin-left: 0px;
-        width:100%;
-        margin-top: 0px;
-    }
-
-    .item-view#skin1-container .contents.reviews ul.productReview li > div > div > img+p{
-        margin-top: 10px;
-    }
-
-    .item-view#skin1-container .contents.reviews ul.productReview li > div > div.small > p{
-        display: inline-block;
-    }
-
-    .item-view#skin1-container .contents.reviews ul.productReview li > div > div.small > img+p{
-        margin-left: 15px;
-        width: 655px;
-        margin-top: 0px;
-    }
-
-    .item-view#skin1-container .contents.reviews ul.productReview li > div > div.small > p span{
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
-        word-wrap: break-word;
-        max-height: 77px;
-    }
-
-    .item-view#skin1-container .contents.reviews ul.productReview li > div > div .foldBtn{
-        display: block;
-        margin-top: 5px;
-    }
-
-    .item-view#skin1-container .contents.reviews ul.productReview li > div > div > span.info{
-        margin-left: 0px;
-    }
-
-    /*
-    .item-view#skin1-container .contents.reviews ul.productReview li > div{
-        min-height: 130px;
-    }
-
-    */
 }
 
 @media screen and (min-width: 64em){
@@ -1153,6 +1096,65 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
 
 .item-view#skin1-container section.contents:first-child > .productInfo.viewOn:before{
     content:"閉じる△";
+}
+
+.item-view#skin1-container .contents.reviews ul.productReview li{
+    min-height: 105px;
+}
+
+.item-view#skin1-container .contents.reviews ul.productReview li > div > div img {
+    width:100%;
+    margin-left: 0px;
+    margin-top: 3px;
+}
+
+.item-view#skin1-container .contents.reviews ul.productReview li > div > div.small img {
+    max-width: 20%;
+    min-height: 100px;
+}
+
+.item-view#skin1-container .contents.reviews ul.productReview li > div > div{
+    padding: 0px;
+}
+
+.item-view#skin1-container .contents.reviews ul.productReview li > div > div > p{
+    vertical-align: top;
+    margin-left: 0px;
+    width:100%;
+    margin-top: 0px;
+}
+
+.item-view#skin1-container .contents.reviews ul.productReview li > div > div > img+p{
+    margin-top: 10px;
+}
+
+.item-view#skin1-container .contents.reviews ul.productReview li > div > div.small > p{
+    display: inline-block;
+}
+
+.item-view#skin1-container .contents.reviews ul.productReview li > div > div.small > img+p{
+    padding-left: 15px;
+    width: 80%;
+    margin-top: 0px;
+}
+
+.item-view#skin1-container .contents.reviews ul.productReview li > div > div.small > p span{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    max-height: 77px;
+}
+
+.item-view#skin1-container .contents.reviews ul.productReview li > div > div .foldBtn{
+    display: block;
+    margin-top: 5px;
+}
+
+.item-view#skin1-container .contents.reviews ul.productReview li > div > div > span.info{
+    margin-left: 0px;
 }
 
 .productList[data-type="main"]{
