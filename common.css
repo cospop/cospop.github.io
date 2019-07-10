@@ -842,16 +842,8 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
         color:black !important;
     }
 
-    body{
-        background-color:#EEEFF1 !important;
-    }
-
     .wrap{
         background-color:#FFFFFF !important;
-    }
-
-    footer{
-        background-color:#EEEFF1 !important;
     }
 
     div#skin1-container .aside-left, div#skin1-container .aside-right{
