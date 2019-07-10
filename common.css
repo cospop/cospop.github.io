@@ -12,15 +12,27 @@ body, nav{
 
 select{ font-size: 16px !important; }
 
+footer#skin1-footer .footer-menu ul{
+    width:100%;
+}
+
 footer .footer-menu ul li a span{
-    font-size: 0.2em !important;
+    font-size: 0.5em !important;
     font-weight: 100;
+}
+
+footer#skin1-footer{
+    margin-bottom: 0px !important;
 }
 
 footer#skin1-footer.active a.a-top {
     display: block;
     bottom: 80px !important;
     display: none !important;
+}
+
+footer#skin1-footer ul li a{
+    padding: 0 0.3em !important;
 }
 
 footer .footer-copyright div{
@@ -804,6 +816,9 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
 @media screen and (min-width: 20em){
     #skin1-container .search-box .box-input {
         padding-left:15px !important;
+    }
+    footer#skin1-footer > div {
+        padding: 0px !important;
     }
 }
 

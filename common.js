@@ -741,11 +741,15 @@ function orderInit(){
             $(".container.order order-non-member-join label[for='OrderNonMemberJoin-name']").parent("div").appendTo($(".container.order order-non-member-join label[for='OrderNonMemberJoin-password']").parent("div").next());
             $(".container.order order-non-member-join label[for='OrderNonMemberJoin-tel']").parent("div").appendTo($(".container.order order-non-member-join label[for='OrderNonMemberJoin-password']").parent("div").next());
             $(".container.order order-non-member-join input#OrderNonMemberJoin-tel").attr("type", "tel");
+            $(".container.order order-non-member-join input#OrderNonMemberJoin-tel").attr("placeholder", "数字のみ入力");
 
             $(".container.order order-user-info label[for='OrderUserInfo-name']").parent("div").after("<div id='infoArea'></div>");
             $(".container.order order-user-info label[for='OrderUserInfo-name']").parent("div").appendTo($(".container.order order-user-info label[for='OrderUserInfo-name']").parent("div").next());
             $(".container.order order-user-info label[for='OrderUserInfo-phone']").parent("div").appendTo($(".container.order order-user-info label[for='OrderUserInfo-name']").parent("div").parent("div"));
             $(".container.order order-user-info input#OrderUserInfo-phone").attr("type", "tel");
+            $(".container.order order-user-info input#OrderUserInfo-phone").attr("placeholder", "数字のみ入力");
+
+            $(".container.order order-shipping-address input#OrderShippingAddress-Phone").attr("placeholder", "数字のみ入力");
 
             $(".container.order order-shipping-address form fieldset input#OrderShippingAddress-ZipCode").attr("readonly",true);
 
