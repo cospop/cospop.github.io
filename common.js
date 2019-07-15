@@ -313,6 +313,16 @@ $(window).load(function(){
         }
     });
 
+    $(document).on("keyup", ".container.order.orderFirst order-non-member-join input[type='email']", function(e){
+        var emailVal = $(this).val();
+        var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+        if (emailVal.match(regExp) != null) {
+            $(this).parent().removeClass("err");
+            $(".container.order.orderFirst order-non-member-join form button[type='submit']").removeClass("err");
+            $(".container.order.orderFirst order-non-member-join form button[type='submit']").attr("disabled", false);
+        }
+    });
+
     $(document).on("keyup", ".container.order order-non-member-join input#OrderNonMemberJoin-tel", function(e){
         if($(this).val().length<10){
             $(this).parent().addClass("err");
