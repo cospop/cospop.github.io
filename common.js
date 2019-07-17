@@ -688,7 +688,8 @@ function productReviewInit(page){
                 productReview += '<button type="button" class="foldBtn ng-hide" data-type="close">閉じる</button>';
             }
             productReview += '</p>';
-            productReview += '<span class="info"><span class="name">'+ (obj.writer.length>3 ? obj.writer.replace(/.{3}$/,"****") : "****") +'</span></span>';
+            // productReview += '<span class="info"><span class="name">'+ (obj.writer.length>3 ? obj.writer.replace(/.{3}$/,"****") : "****") +'</span></span>';
+            productReview += '<span class="info"><span class="name">'+ (obj.writer.length>3 ? (obj.writer.substring(0,3)+"***") : "******") +'</span></span>';
             productReview += '</div>';
             productReview += '</div>';
             productReview += '</li>';
