@@ -749,6 +749,11 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
     .container.order order-price-info #newPayMethod {
         margin-bottom: 10px;
     }
+
+    .item-view#skin1-container section.form .option form fieldset div .item-option>div.deliveryMsg{
+        margin-left: 0px;
+        margin-top:10px;
+    }
 }
 
 /* 480-768 */
@@ -804,6 +809,16 @@ a.button.join:hover, a.button.join:focus, a.button.join.active {
 
     .payBtnArea, .monco-snb{
         display: none;
+    }
+
+    .container .total.detail .set-total li.shipping .title > span{
+        display: block;
+        position: absolute;
+        margin-top: 3px;
+    }
+
+    .container .total.detail .set-total li:nth-of-type(3){
+        margin-top: 25px;
     }
 }
 

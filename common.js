@@ -32,6 +32,7 @@ $(window).load(function(){
     categoryInit();
     productDetailInit();
     orderInit();
+    orderTotalInit();
 
     $(document).on("click", ".moncoStyle tbody tr:not(.contentsArea)", function(){
         if($(this).next().hasClass("on")){
@@ -116,6 +117,10 @@ $(window).load(function(){
 
     $("body").on('DOMCharacterDataModified', '.modal-dft.active .option_notice_msg', function(e){
         $(this).text($(this).text().replace(/お見積もりリスト/gi, '「Q & A'));
+    });
+
+    $("body.ctrl-mypage.act-orders").on('DOMCharacterDataModified', '.modal-dft.active .mypage-order-detail .shipping .title', function(e){
+        $(this).html($(this).text()+"<br/><span style='font-size:8pt;'>(一部離島・山間部は中継料金が追加されます)</span>");
     });
 
     $("body").on('DOMCharacterDataModified', '.mypage#skin1-container .estimate ul.list .state-detail.estimate.checking > span', function(e){
@@ -596,7 +601,7 @@ function productDetailInit(){
             });
 
             $(".item-view#skin1-container section.contents:first-child > span").after("<div class='productInfo'></div>");
-            $(".item-view#skin1-container section.form .option form fieldset div .item-option>div.box-quantity").after("<div class='deliveryMsg'>5000円以上のご注文で<br/>配送料無料！</div>")
+            $(".item-view#skin1-container section.form .option form fieldset div .item-option>div.box-quantity").after("<div class='deliveryMsg'><p><span>5,000円以上のご注文で</span><span>&nbsp;基本&nbsp;</span><span>配送料無料！</span></p><p style='font-size: 8pt;color: #adb0b5;'><span>(一部離島・山間部は中継料金が追加されます)</span></p></div>")
 
             productReviewInit(1);
 
@@ -798,12 +803,46 @@ function orderInit(){
     },200);
 }
 
+function orderTotalInit(){
+    var loadCount1=0;
+    var countCode1 = setInterval( function() {
+        loadCount1++;
+        if($(".container .total.detail .set-total li.shipping .title").length>0){
+            var shippingObj = $(".container .total.detail .set-total li.shipping:nth-child(2) .title");
+            if(shippingObj.html().match(/送料/)) {
+                shippingObj.html("送料&nbsp;<span style='font-size: 7pt;'>(一部離島・山間部は中継料金が追加されます)</span>");
+            }
+            clearInterval(countCode1);
+            countCode1 = "";
+            loadCount1=0;
+        }else if(loadCount1>20){
+            clearInterval(countCode1);
+            countCode1 = "";
+            loadCount1=0;
+        }
+    },200);
+}
+
 function orderMenuOn(){
     if($(".container.order order-user-login > div").hasClass("on")){
-        $(".container.order").addClass("orderFirst");
-        $(".container.order order-non-member-join").insertAfter($(".container.order order-user-login"));
-        $(".container.order order-user-login .sub-title-page > span").text("会員注文");
-        $(".container.order order-non-member-join input[type='password']").attr("placeholder", "注文のパスワード(4文字以上)");
+        var loadCount=0;
+
+        var countCode = setInterval( function() {
+            loadCount++;
+            if($(".container.order order-non-member-join").length>0 && $(".container.order order-user-login").length>0){
+                $(".container.order").addClass("orderFirst");
+                $(".container.order order-non-member-join").insertAfter($(".container.order order-user-login"));
+                $(".container.order order-user-login .sub-title-page > span").text("会員注文");
+                $(".container.order order-non-member-join input[type='password']").attr("placeholder", "注文のパスワード(4文字以上)");
+                clearInterval(countCode);
+                countCode = "";
+                loadCount=0;
+            }else if(loadCount>20){
+                clearInterval(countCode);
+                countCode = "";
+                loadCount=0;
+            }
+        },200);
     }else{
         $(".container.order order-user-info .orderer-info").removeClass("select");
         $(".container.order order-user-info .orderer-info").removeClass("off");
