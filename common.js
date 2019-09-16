@@ -302,6 +302,11 @@ $(window).load(function(){
         }
     });
 
+    $(document).on("click", ".mypage#skin1-container .body button.question", function(e){
+        $("html").hide();
+        location.href = "/MyPage/Estimate";
+    });
+
     $(document).on("click", ".item-view#skin1-container section.contents.reviews > div .newPaging a", function(e){
         productReviewInit($(this).attr("data-page"));
     });
