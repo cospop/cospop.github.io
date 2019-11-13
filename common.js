@@ -85,23 +85,23 @@ $(window).load(function(){
         }
     });
 
-    var touchmoved;
-
-    $(document).on("touchend", ".moncoStyle2 li", function(e){
-        // e.stopPropagation();
-        // e.preventDefault();
-        if(touchmoved != true){
-            if($(e.target)[0].tagName=="IMG"){
-                return;
-            }
-            var clickObj = $(this);
-            clickObj.trigger("click");
-        }
-    }).on('touchmove', function(e){
-        touchmoved = true;
-    }).on('touchstart', function(){
-        touchmoved = false;
-    });
+    // var touchmoved;
+    //
+    // $(document).on("touchend", ".moncoStyle2 li", function(e){
+    //     // e.stopPropagation();
+    //     // e.preventDefault();
+    //     if(touchmoved != true){
+    //         if($(e.target)[0].tagName=="IMG"){
+    //             return;
+    //         }
+    //         var clickObj = $(this);
+    //         clickObj.trigger("click");
+    //     }
+    // }).on('touchmove', function(e){
+    //     touchmoved = true;
+    // }).on('touchstart', function(){
+    //     touchmoved = false;
+    // });
 
     $("body").on('DOMCharacterDataModified', '.modal-dft.active .estimate-write h1', function(e){
         $(this).text("お問い合わせ");
