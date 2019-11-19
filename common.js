@@ -540,7 +540,7 @@ function productDetailInit(){
     var countCode2 = setInterval( function() {
         loadCount2++;
         if($(".dev-goodsImage-display:first-child").attr("src") != undefined){
-            var payHTML = '<div class="payBtnArea"><span>購入</span></div>';
+            var payHTML = '<div class="payBtnArea"><span>ご購入手続き</span></div>';
 
             $("body").append(payHTML);
             $(".item-view#skin1-container section.form .option").prepend('<button type="button" class="optionClose"><span></span></button>');
