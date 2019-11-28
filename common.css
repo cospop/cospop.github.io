@@ -1645,7 +1645,7 @@ ul.moncoStyle2 .star_point a{
   .pswp__button,
   .pswp__button--arrow--left:before,
   .pswp__button--arrow--right:before {
-    background: url(http://cospop.github.io/pswp.svg) 0 0 no-repeat;
+    background: url(https://cospop.github.io/pswp.svg) 0 0 no-repeat;
     background-size: 264px 88px;
     width: 44px;
     height: 44px; }
@@ -1654,7 +1654,7 @@ ul.moncoStyle2 .star_point a{
     .pswp--svg .pswp__button,
     .pswp--svg .pswp__button--arrow--left:before,
     .pswp--svg .pswp__button--arrow--right:before {
-      background-image: url(http://cospop.github.io/pswp.svg); }
+      background-image: url(https://cospop.github.io/pswp.svg); }
     .pswp--svg .pswp__button--arrow--left,
     .pswp--svg .pswp__button--arrow--right {
       background: none; } }
