@@ -198,6 +198,16 @@ nav.category.dev-menuTree div.fix{
     /*display: none;*/
 }
 
+.item-view#skin1-container section.form .addition .reviews{
+    flex:none !important;
+}
+
+.item-view#skin1-container section.form .addition .reviews .rating>*>*:before,
+.item-view#skin1-container section.form .addition .reviews .rating>*>*:after{
+    font-size: 14pt !important;
+    font-size: 0.5em !important;
+}
+
 .item-view#skin1-container .set-layout .bread-crumb {
     display: none;
 }
