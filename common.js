@@ -388,13 +388,10 @@ $(window).load(function(){
 
     $("body").on('DOMCharacterDataModified', '#skin1-container form[name="frmGoodsOrder"] .item-option ul li[ng-repeat="item in ctrl.val.desc.options"]', function(e){
         var searchString = $(this).text();
-        // var pattern = /\((.*?)\)/igs;
-        var pattern = new RegExp("\((.*?)\)","igs");
+        var pattern = /[(][^)]*[)]/ig;
+        // var pattern = new RegExp("[(][^)]*[)]","igs");
         var matchArray;
-        var str = "";
-        while((matchArray = pattern.exec(searchString)) != null){
-            str = matchArray[0];
-        }
+        var str = pattern.exec(searchString)[0];
         $(this).text(searchString.replace(str, ""));
     });
 
