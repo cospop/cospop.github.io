@@ -615,7 +615,7 @@ function productDetailInit(){
             });
 
             $(".item-view#skin1-container section.contents:first-child > span").after("<div class='productInfo'></div>");
-            $(".item-view#skin1-container section.form .option form fieldset div .item-option>div.box-quantity").after("<div class='deliveryMsg'><p><span>10,000円以上のご注文で</span><span>&nbsp;基本&nbsp;</span><span>配送料無料！</span></p><p style='font-size: 8pt;color: #adb0b5;'><span>(一部離島・山間部は中継料金が追加されます)</span></p></div>")
+            $(".item-view#skin1-container section.form .option form fieldset div .item-option>div.box-quantity").after("<div class='deliveryMsg'><p><span>8,000円以上のご注文で</span><span>&nbsp;基本&nbsp;</span><span>配送料無料！</span></p><p style='font-size: 8pt;color: #adb0b5;'><span>(一部離島・山間部は中継料金が追加されます)</span></p></div>")
 
             productReviewInit(1);
 
