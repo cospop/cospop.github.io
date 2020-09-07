@@ -791,7 +791,7 @@ function orderInit(){
             payMethodHTML += '<div id="newPayMethod" class="box-select">';
             payMethodHTML += '<select>';
             payMethodHTML += '<option data-radio="" data-alert="お支払い方法を選択してください">決済方法選択</option>';
-            payMethodHTML += '<option data-radio="pay_paytype_BANK" data-alert="※ 注文確定後、注文完了ページから決済手続きを進めてください。\n※ 「決済するボタン」をクリックすると、「決済手続き画面」が表示されます。">銀行振込</option>';
+            //payMethodHTML += '<option data-radio="pay_paytype_BANK" data-alert="※ 注文確定後、注文完了ページから決済手続きを進めてください。\n※ 「決済するボタン」をクリックすると、「決済手続き画面」が表示されます。">銀行振込</option>';
             payMethodHTML += '<option data-radio="pay_paytype_TELEGRAM_CARD_REQUEST" data-alert="※ 注文確定後、注文完了ページから決済手続きを進めてください。\n※ 「決済するボタン」をクリックすると、「決済手続き画面」が表示されます。">クレジットカード</option>';
             payMethodHTML += '</select>';
             payMethodHTML += '</div>';
